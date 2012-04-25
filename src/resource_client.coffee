@@ -18,11 +18,13 @@ class ResourceClient
     path = @_findPath(collection, "index", options)
     ids = []
     @request path, {}, (result) =>
-      items = @itemsFromResult(result)
-      unless items?
+      #items = @itemsFromResult(result)
+      #unless items?
+      unless result?
         console.log "[ResourceClient] Items not found in response", result
         return
-      ids = @updateFromItems(collection, items, options)
+      #ids = @updateFromItems(collection, items, options)
+      ids = @updateFromItems(collection, result, options)
       @_removeObjectsNotInList(collection, ids, options.removeScope) if options.remove == true
       options.success() if options.success
   
